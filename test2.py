@@ -19,10 +19,13 @@ for i in range(1,2):
         direccion = link.get('href') #sacamos uno a uno los links
         texto = link.get_text() #Sacamos el texto asociado al link
         salida = str(texto)+" "+str(direccion)
-        print(salida + "\n")
+        print('\n'+salida + "\n")
         url2 = str(direccion)
         web2 = http.request('GET', url2)
         soup = BeautifulSoup(web2.data, 'lxml') #Propiedad .data
-        reclamo = soup.select('body div p') #Se agrega body y tbody para acotar las busquedas
-        print(reclamos)
+        reclamos = soup.select('body div p') #Se agrega body y tbody para acotar las busquedas
+        print('\n')
+        for reclamo in reclamos:
+            print(reclamo.get_text())
+        print(url1)
     #print(titulo)
