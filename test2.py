@@ -9,7 +9,8 @@ web = http.request('GET', 'https://www.reclamos.cl/telecomunicaciones?page=1')
 soup = BeautifulSoup(web.data, 'lxml') #Propiedad .data
 #titulo = soup.a.text
 
-links = soup.find_all('a')
+links = soup.select('body tbody a') #Se agrega body y tbody para acotar las busquedas
+
 
 for link in links:
     urls = link.get('href') #sacamos uno a uno los links
