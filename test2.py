@@ -12,8 +12,8 @@ soup = BeautifulSoup(web.data, 'lxml') #Propiedad .data
 links = soup.find_all('a')
 
 for link in links:
-    urls = link.get('href') 
-    texto = link.get_text()
+    urls = link.get('href') #sacamos uno a uno los links
+    texto = link.get_text() #Sacamos el texto asociado al link
     salida = str(texto)+" "+str(urls)
     print(salida + "\n")
 #print(titulo)
