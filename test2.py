@@ -2,19 +2,27 @@ from bs4 import BeautifulSoup
 import csv
 import urllib3
 
-http = urllib3.PoolManager()
 
-web = http.request('GET', 'https://www.reclamos.cl/telecomunicaciones?page=1')
+for i in range(1,2):
+    http = urllib3.PoolManager()
+    url1 = 'https://www.reclamos.cl/telecomunicaciones?page='+str(i)
 
-soup = BeautifulSoup(web.data, 'lxml') #Propiedad .data
-#titulo = soup.a.text
+    web = http.request('GET', url1)
 
-links = soup.select('body tbody a') #Se agrega body y tbody para acotar las busquedas
+    soup = BeautifulSoup(web.data, 'lxml') #Propiedad .data
+    #titulo = soup.a.text
+
+    links = soup.select('body tbody a') #Se agrega body y tbody para acotar las busquedas
 
 
-for link in links:
-    urls = link.get('href') #sacamos uno a uno los links
-    texto = link.get_text() #Sacamos el texto asociado al link
-    salida = str(texto)+" "+str(urls)
-    print(salida + "\n")
-#print(titulo)
+    for link in links:
+        direccion = link.get('href') #sacamos uno a uno los links
+        texto = link.get_text() #Sacamos el texto asociado al link
+        salida = str(texto)+" "+str(direccion)
+        print(salida + "\n")
+        url2 = str(direccion)
+        web2 = http.request('GET', url2)
+        soup = BeautifulSoup(web2.data, 'lxml') #Propiedad .data
+        reclamo = soup.select('body div p') #Se agrega body y tbody para acotar las busquedas
+        print(reclamos)
+    #print(titulo)
