@@ -1,6 +1,7 @@
 from bs4 import BeautifulSoup
 import csv
 import urllib3
+import re  #Librería para eliminar saltos de linea en reclamos
 
 f = open('Salida.csv', 'w', encoding='utf-8')
 for i in range(1,2):
@@ -26,6 +27,7 @@ for i in range(1,2):
         reclamos = soup.select('body div span p') #Se agrega body div span p para acotar las busquedas
         reclamos = str(reclamos)
         reclamos = BeautifulSoup(reclamos, 'lxml').text #Se agrega forma más limpia de sacar los reclamos
+        reclamos = re.sub(r'[\t\r\n]', '', reclamos) #Para eliminar los saltos de linea en reclamos
         Fechas = soup.select('body div span')
         for Fecha in Fechas:
           #direccion = link.get('href') #sacamos uno a uno los links
