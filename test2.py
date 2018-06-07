@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 import csv
 import urllib3
 
-
+f = open('Salida.csv', 'w', encoding='utf-8')
 for i in range(1,2):
     http = urllib3.PoolManager()
     url1 = 'https://www.reclamos.cl/telecomunicaciones?page='+str(i)
@@ -18,7 +18,6 @@ for i in range(1,2):
     for link in links:
         direccion = link.get('href') #sacamos uno a uno los links
         titulo = link.get_text() #Sacamos el texto asociado al link
-        f = open('Salida.csv', 'w', encoding='utf-8')
         #salida = str(texto)+" "+str(direccion)
         #print('\n'+salida + "\n")
         url2 = str(direccion)
