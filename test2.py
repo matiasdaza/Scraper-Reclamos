@@ -4,7 +4,7 @@ import urllib3
 import re  #Librería para eliminar saltos de linea en reclamos
 
 f = open('Salida.csv', 'w', encoding='utf-8')
-for i in range(137,500): #Los valores de range son (página inicial, página final)
+for i in range(146,500): #Los valores de range son (página inicial, página final)
     http = urllib3.PoolManager()
     url1 = 'https://www.reclamos.cl/telecomunicaciones?page='+str(i)
 
@@ -28,6 +28,7 @@ for i in range(137,500): #Los valores de range son (página inicial, página fin
         reclamos = str(reclamos)
         reclamos = BeautifulSoup(reclamos, 'lxml').text #Se agrega forma más limpia de sacar los reclamos
         reclamos = re.sub(r'[\t\r\n]', '', reclamos) #Para eliminar los saltos de linea en reclamos
+        reclamos = reclamos.replace(';','')
         Fechas = soup.select('body div span')
         for Fecha in Fechas: #Busca la fecha del reclamo
           #direccion = link.get('href') #sacamos uno a uno los links
